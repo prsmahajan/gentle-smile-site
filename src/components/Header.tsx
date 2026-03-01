@@ -61,7 +61,7 @@ const Header = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                className={`nav-link-hover px-3 py-2 text-sm font-medium rounded-md transition-all duration-300 ${
                   location.pathname === link.path
                     ? isTransparent
                       ? "text-primary-foreground bg-primary-foreground/10"
