@@ -22,13 +22,14 @@ const Contact = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          data: {
-            name: form.name.trim(),
-            email: form.email.trim(),
-            phone: form.phone.trim(),
-            message: form.message.trim(),
-            submitted_at: new Date().toISOString(),
-          },
+          data: [
+            {
+              "Name": form.name.trim(),
+              "Email": form.email.trim(),
+              "Phone": form.phone.trim(),
+              "Message": form.message.trim(),
+            },
+          ],
         }),
       });
       if (!response.ok) throw new Error("Failed to submit");
