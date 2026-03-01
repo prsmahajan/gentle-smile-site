@@ -112,7 +112,7 @@ const Contact = () => {
                   <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                   <div>
                     <p className="font-medium text-foreground">Wausau, Wisconsin</p>
-                    <p className="text-sm text-muted-foreground">Serving the Wausau area</p>
+                    <p className="text-sm text-muted-foreground">Serving the greater Wausau area</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -161,6 +161,31 @@ const Contact = () => {
             </div>
           </FadeIn>
         </div>
+      </Section>
+
+      {/* Google Maps Section */}
+      <Section className="bg-accent pt-0">
+        <FadeIn>
+          <div className="text-center mb-8">
+            <h2 className="text-2xl lg:text-3xl font-display font-semibold text-foreground mb-2">
+              Find Our Office
+            </h2>
+            <p className="text-muted-foreground">Conveniently located in Wausau, Wisconsin</p>
+          </div>
+          <div className="rounded-xl overflow-hidden border border-border shadow-sm">
+            <iframe
+              title="Dr. Sara L. Schult office location in Wausau, Wisconsin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d45636.86848498889!2d-89.6709!3d44.9591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88003de1eecbb5bb%3A0xb11e51f2e0ad9b25!2sWausau%2C%20WI!5e0!3m2!1sen!2sus!4v1700000000000"
+              width="100%"
+              height="400"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full"
+            />
+          </div>
+        </FadeIn>
       </Section>
     </>
   );

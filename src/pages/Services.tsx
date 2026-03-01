@@ -9,7 +9,7 @@ const serviceCategories = [
     title: "Preventive Dentistry",
     description: "Keeping your smile healthy with proactive care",
     services: [
-      { name: "Professional Cleanings", desc: "Thorough cleanings to remove plaque and tartar buildup, keeping your gums healthy.", who: "Everyone — recommended every 6 months" },
+      { name: "Professional Cleanings", desc: "Thorough cleanings to remove plaque and tartar buildup, keeping your gums healthy.", who: "Everyone — recommended every 6 months", link: "/services/teeth-cleaning" },
       { name: "Comprehensive Exams", desc: "Detailed examinations to catch potential issues early when they're easiest to treat.", who: "New and returning patients" },
       { name: "Digital X-Rays", desc: "Low-radiation digital imaging for accurate diagnosis with maximum comfort.", who: "As needed for accurate diagnosis" },
       { name: "Fluoride Treatments", desc: "Strengthening enamel to protect against decay, especially beneficial for cavity-prone patients.", who: "Children and cavity-prone adults" },
@@ -20,8 +20,8 @@ const serviceCategories = [
     title: "Restorative Dentistry",
     description: "Repairing and rebuilding your natural smile",
     services: [
-      { name: "Tooth-Colored Fillings", desc: "Natural-looking composite fillings that blend seamlessly with your teeth.", who: "Patients with cavities or old metal fillings" },
-      { name: "Dental Crowns", desc: "Custom-made caps that restore strength and appearance to damaged teeth.", who: "Patients with cracked, weakened, or worn teeth" },
+      { name: "Tooth-Colored Fillings", desc: "Natural-looking composite fillings that blend seamlessly with your teeth.", who: "Patients with cavities or old metal fillings", link: "/services/dental-fillings" },
+      { name: "Dental Crowns", desc: "Custom-made caps that restore strength and appearance to damaged teeth.", who: "Patients with cracked, weakened, or worn teeth", link: "/services/dental-crowns" },
       { name: "Bridges", desc: "Fixed replacements for missing teeth that look and feel natural.", who: "Patients missing one or more teeth" },
     ],
   },
@@ -30,7 +30,7 @@ const serviceCategories = [
     title: "Cosmetic Dentistry",
     description: "Enhancing your confidence with a beautiful smile",
     services: [
-      { name: "Teeth Whitening", desc: "Professional whitening for a brighter, more radiant smile.", who: "Anyone wanting a whiter smile" },
+      { name: "Teeth Whitening", desc: "Professional whitening for a brighter, more radiant smile.", who: "Anyone wanting a whiter smile", link: "/services/teeth-whitening" },
       { name: "Dental Bonding", desc: "Repairing chips, gaps, and discoloration with natural-looking composite resin.", who: "Patients with minor cosmetic concerns" },
     ],
   },
@@ -62,15 +62,24 @@ const Services = () => {
             description={category.description}
           />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {category.services.map((service, si) => (
-              <FadeIn key={si} delay={si * 0.1}>
-                <div className="bg-card rounded-xl p-6 border border-border h-full">
-                  <h3 className="font-display text-lg font-semibold text-foreground mb-2">{service.name}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-3">{service.desc}</p>
-                  <p className="text-xs text-primary font-medium">Best for: {service.who}</p>
-                </div>
-              </FadeIn>
-            ))}
+            {category.services.map((service, si) => {
+              const Wrapper = service.link ? Link : "div";
+              const wrapperProps = service.link ? { to: service.link } : {};
+              return (
+                <FadeIn key={si} delay={si * 0.1}>
+                  <Wrapper {...(wrapperProps as any)} className={`bg-card rounded-xl p-6 border border-border h-full block ${service.link ? "group hover:border-primary/30 hover:shadow-md transition-all" : ""}`}>
+                    <h3 className="font-display text-lg font-semibold text-foreground mb-2">{service.name}</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-3">{service.desc}</p>
+                    <p className="text-xs text-primary font-medium">Best for: {service.who}</p>
+                    {service.link && (
+                      <span className="inline-flex items-center gap-1 text-sm text-primary mt-3 group-hover:gap-2 transition-all">
+                        Learn more <ArrowRight className="w-3.5 h-3.5" />
+                      </span>
+                    )}
+                  </Wrapper>
+                </FadeIn>
+              );
+            })}
           </div>
           <FadeIn className="text-center mt-8">
             <Button asChild>
