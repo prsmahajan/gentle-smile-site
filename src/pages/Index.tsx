@@ -126,7 +126,24 @@ const Index = () => {
                 <p className="text-xs text-muted-foreground mt-2">— Patient for 26 years</p>
               </motion.div>
             </motion.div>
-          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        >
+          <span className="text-xs text-primary-foreground/40 tracking-widest uppercase">Scroll</span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            className="w-5 h-8 rounded-full border-2 border-primary-foreground/30 flex items-start justify-center pt-1.5"
+          >
+            <div className="w-1 h-1.5 rounded-full bg-primary-foreground/60" />
+          </motion.div>
+        </motion.div>
         </div>
       </section>
 
