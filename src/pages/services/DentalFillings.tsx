@@ -8,9 +8,24 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import JsonLd from "@/components/JsonLd";
 
 const DentalFillings = () => (
   <>
+    <JsonLd data={{
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Dental Fillings in Wausau | Sara L. Schult, D.D.S.",
+      "description": "Natural-looking, tooth-colored fillings to repair cavities and restore your teeth.",
+      "url": "https://www.drschultdds.com/services/dental-fillings",
+      "mainEntity": {
+        "@type": "MedicalProcedure",
+        "name": "Tooth-Colored Dental Fillings",
+        "procedureType": "https://schema.org/TherapeuticProcedure",
+        "description": "Composite fillings matched to your natural tooth color",
+      },
+      "provider": { "@type": "Dentist", "name": "Sara L. Schult, D.D.S.", "telephone": "+1-715-848-9100" },
+    }} />
     <section className="pt-28 pb-16 lg:pt-36 lg:pb-24 bg-sage">
       <div className="container mx-auto px-4 lg:px-8 max-w-3xl">
         <FadeIn>

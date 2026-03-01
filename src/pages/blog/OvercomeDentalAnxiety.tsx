@@ -2,9 +2,21 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Section, FadeIn } from "@/components/ui-sections";
 import { ArrowLeft, Calendar, CheckCircle } from "lucide-react";
+import JsonLd from "@/components/JsonLd";
 
 const OvercomeDentalAnxiety = () => (
   <>
+    <JsonLd data={{
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "How to Overcome Dental Anxiety",
+      "description": "Dental anxiety is more common than you think. Learn practical strategies to manage your fear and find a dentist who truly understands.",
+      "datePublished": "2026-02-15",
+      "author": { "@type": "Person", "name": "Dr. Sara L. Schult" },
+      "publisher": { "@type": "Dentist", "name": "Sara L. Schult, D.D.S." },
+      "url": "https://www.drschultdds.com/blog/how-to-overcome-dental-anxiety",
+      "mainEntityOfPage": "https://www.drschultdds.com/blog/how-to-overcome-dental-anxiety",
+    }} />
     <section className="pt-28 pb-16 lg:pt-36 lg:pb-24 bg-sage">
       <div className="container mx-auto px-4 lg:px-8 max-w-3xl">
         <FadeIn>
