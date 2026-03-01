@@ -27,6 +27,7 @@ const Footer = () => {
                 { label: "Our Services", path: "/services" },
                 { label: "New Patients", path: "/new-patients" },
                 { label: "Reviews", path: "/reviews" },
+                { label: "Blog", path: "/blog" },
                 { label: "Contact Us", path: "/contact" },
               ].map((link) => (
                 <li key={link.path}>
@@ -42,15 +43,19 @@ const Footer = () => {
           <div>
             <h4 className="font-display text-base font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-sm">
-              {["Cleanings & Exams", "Fillings", "Crowns & Bridges", "Teeth Whitening", "Preventive Care"].map(
-                (service) => (
-                  <li key={service}>
-                    <Link to="/services" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
-                      {service}
-                    </Link>
-                  </li>
-                )
-              )}
+              {[
+                { label: "Teeth Cleaning", path: "/services/teeth-cleaning" },
+                { label: "Dental Fillings", path: "/services/dental-fillings" },
+                { label: "Dental Crowns", path: "/services/dental-crowns" },
+                { label: "Teeth Whitening", path: "/services/teeth-whitening" },
+                { label: "All Services", path: "/services" },
+              ].map((service) => (
+                <li key={service.path}>
+                  <Link to={service.path} className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                    {service.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
