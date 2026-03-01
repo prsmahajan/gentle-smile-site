@@ -8,9 +8,24 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import JsonLd from "@/components/JsonLd";
 
 const TeethWhitening = () => (
   <>
+    <JsonLd data={{
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Teeth Whitening in Wausau | Sara L. Schult, D.D.S.",
+      "description": "Professional teeth whitening for a brighter, more confident smile.",
+      "url": "https://www.drschultdds.com/services/teeth-whitening",
+      "mainEntity": {
+        "@type": "MedicalProcedure",
+        "name": "Professional Teeth Whitening",
+        "procedureType": "https://schema.org/TherapeuticProcedure",
+        "description": "Professional-grade whitening with custom-fitted trays",
+      },
+      "provider": { "@type": "Dentist", "name": "Sara L. Schult, D.D.S.", "telephone": "+1-715-848-9100" },
+    }} />
     <section className="pt-28 pb-16 lg:pt-36 lg:pb-24 bg-sage">
       <div className="container mx-auto px-4 lg:px-8 max-w-3xl">
         <FadeIn>

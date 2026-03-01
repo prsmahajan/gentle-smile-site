@@ -2,9 +2,21 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Section, FadeIn } from "@/components/ui-sections";
 import { ArrowLeft, Calendar } from "lucide-react";
+import JsonLd from "@/components/JsonLd";
 
 const AvoidDentist10Years = () => (
   <>
+    <JsonLd data={{
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "What Happens If You Avoid the Dentist for 10 Years?",
+      "description": "Skipping dental visits can have serious consequences. Here's what can happen and why it's never too late to start again.",
+      "datePublished": "2026-01-28",
+      "author": { "@type": "Person", "name": "Dr. Sara L. Schult" },
+      "publisher": { "@type": "Dentist", "name": "Sara L. Schult, D.D.S." },
+      "url": "https://www.drschultdds.com/blog/what-happens-if-you-avoid-the-dentist",
+      "mainEntityOfPage": "https://www.drschultdds.com/blog/what-happens-if-you-avoid-the-dentist",
+    }} />
     <section className="pt-28 pb-16 lg:pt-36 lg:pb-24 bg-sage">
       <div className="container mx-auto px-4 lg:px-8 max-w-3xl">
         <FadeIn>

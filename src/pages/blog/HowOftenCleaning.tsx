@@ -2,9 +2,21 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Section, FadeIn } from "@/components/ui-sections";
 import { ArrowLeft, Calendar, CheckCircle } from "lucide-react";
+import JsonLd from "@/components/JsonLd";
 
 const HowOftenCleaning = () => (
   <>
+    <JsonLd data={{
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "How Often Should You Get a Dental Cleaning?",
+      "description": "Is twice a year really enough? We break down the recommended cleaning schedule and who might need more frequent visits.",
+      "datePublished": "2026-01-10",
+      "author": { "@type": "Person", "name": "Dr. Sara L. Schult" },
+      "publisher": { "@type": "Dentist", "name": "Sara L. Schult, D.D.S." },
+      "url": "https://www.drschultdds.com/blog/how-often-should-you-get-a-cleaning",
+      "mainEntityOfPage": "https://www.drschultdds.com/blog/how-often-should-you-get-a-cleaning",
+    }} />
     <section className="pt-28 pb-16 lg:pt-36 lg:pb-24 bg-sage">
       <div className="container mx-auto px-4 lg:px-8 max-w-3xl">
         <FadeIn>
