@@ -9,11 +9,13 @@ import { useToast } from "@/hooks/use-toast";
 const Contact = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [honeypot, setHoneypot] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (honeypot) return; // Bot detected
     setIsSubmitting(true);
     try {
       const response = await fetch("https://sheetdb.io/api/v1/ucatmmzoa8zcz", {
@@ -114,6 +116,20 @@ const Contact = () => {
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     placeholder="Tell us what you need — whether it's a cleaning, a concern, or just a question. We're here to help."
                   />
+                </div>
+                {/* Honeypot - hidden from real users */}
+                <div className="absolute opacity-0 -z-10" aria-hidden="true" tabIndex={-1}>
+                  <label>
+                    Website
+                    <Input
+                      type="text"
+                      name="website"
+                      autoComplete="off"
+                      tabIndex={-1}
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                    />
+                  </label>
                 </div>
                 <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={isSubmitting}>
                   <Calendar className="w-4 h-4 mr-2" />
