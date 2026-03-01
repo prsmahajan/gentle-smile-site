@@ -5,17 +5,59 @@ import { Textarea } from "@/components/ui/textarea";
 import { Section, FadeIn } from "@/components/ui-sections";
 import { Phone, MapPin, Clock, Mail, Calendar, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100, "Name must be under 100 characters"),
+  email: z.string().trim().min(1, "Email is required").email("Please enter a valid email address").max(255, "Email must be under 255 characters"),
+  phone: z.string().trim().max(20, "Phone number is too long").optional().or(z.literal("")),
+  message: z.string().trim().min(1, "Message is required").max(1000, "Message must be under 1000 characters"),
+});
+
+type FormErrors = Partial<Record<keyof z.infer<typeof contactSchema>, string>>;
 
 const Contact = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [honeypot, setHoneypot] = useState("");
-
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const validateField = (field: keyof typeof form) => {
+    const result = contactSchema.shape[field].safeParse(form[field]);
+    if (!result.success) {
+      setErrors((prev) => ({ ...prev, [field]: result.error.errors[0].message }));
+    } else {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+    }
+  };
+
+  const handleBlur = (field: keyof typeof form) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    validateField(field);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (honeypot) return; // Bot detected
+    if (honeypot) return;
+
+    const result = contactSchema.safeParse(form);
+    if (!result.success) {
+      const fieldErrors: FormErrors = {};
+      result.error.errors.forEach((err) => {
+        const field = err.path[0] as keyof typeof form;
+        if (!fieldErrors[field]) fieldErrors[field] = err.message;
+      });
+      setErrors(fieldErrors);
+      setTouched({ name: true, email: true, phone: true, message: true });
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const response = await fetch("https://sheetdb.io/api/v1/ucatmmzoa8zcz", {
@@ -24,10 +66,10 @@ const Contact = () => {
         body: JSON.stringify({
           data: [
             {
-              "Name": form.name.trim(),
-              "Email": form.email.trim(),
-              "Phone": form.phone.trim(),
-              "Message": form.message.trim(),
+              "Name": result.data.name,
+              "Email": result.data.email,
+              "Phone": result.data.phone || "",
+              "Message": result.data.message,
             },
           ],
         }),
@@ -38,6 +80,8 @@ const Contact = () => {
         description: "Thank you! We'll get back to you within one business day.",
       });
       setForm({ name: "", email: "", phone: "", message: "" });
+      setErrors({});
+      setTouched({});
     } catch {
       toast({
         title: "Something went wrong",
@@ -48,6 +92,11 @@ const Contact = () => {
       setIsSubmitting(false);
     }
   };
+
+  const fieldError = (field: keyof typeof form) =>
+    touched[field] && errors[field] ? (
+      <p className="text-sm text-destructive mt-1">{errors[field]}</p>
+    ) : null;
 
   return (
     <>
@@ -73,7 +122,7 @@ const Contact = () => {
           <FadeIn className="lg:col-span-3">
             <div className="bg-card rounded-xl p-8 border border-border">
               <h2 className="font-display text-2xl font-semibold text-foreground mb-6">Send Us a Message</h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4 relative">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Full Name *</label>
@@ -82,8 +131,11 @@ const Contact = () => {
                       maxLength={100}
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      onBlur={() => handleBlur("name")}
                       placeholder="Your name"
+                      className={touched.name && errors.name ? "border-destructive" : ""}
                     />
+                    {fieldError("name")}
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Phone</label>
@@ -92,8 +144,11 @@ const Contact = () => {
                       maxLength={20}
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                      onBlur={() => handleBlur("phone")}
                       placeholder="(715) 555-0123"
+                      className={touched.phone && errors.phone ? "border-destructive" : ""}
                     />
+                    {fieldError("phone")}
                   </div>
                 </div>
                 <div>
@@ -104,8 +159,11 @@ const Contact = () => {
                     maxLength={255}
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    onBlur={() => handleBlur("email")}
                     placeholder="you@email.com"
+                    className={touched.email && errors.email ? "border-destructive" : ""}
                   />
+                  {fieldError("email")}
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Message *</label>
@@ -115,8 +173,11 @@ const Contact = () => {
                     rows={5}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    onBlur={() => handleBlur("message")}
                     placeholder="Tell us what you need — whether it's a cleaning, a concern, or just a question. We're here to help."
+                    className={touched.message && errors.message ? "border-destructive" : ""}
                   />
+                  {fieldError("message")}
                 </div>
                 {/* Honeypot - hidden from real users */}
                 <div className="absolute opacity-0 -z-10" aria-hidden="true" tabIndex={-1}>

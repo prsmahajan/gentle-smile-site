@@ -34,47 +34,97 @@ const services = [
 const Index = () => {
   return (
     <>
-      {/* Hero */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={heroImage} alt="Calming dental office interior" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/75 to-foreground/40" />
-        </div>
-        <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-20">
-          <div className="max-w-2xl">
+      {/* Hero - Split Layout */}
+      <section className="relative min-h-screen bg-foreground overflow-hidden">
+        <div className="container mx-auto px-4 lg:px-8 relative z-10 h-full">
+          <div className="grid lg:grid-cols-2 items-center min-h-screen gap-8 pt-24 pb-12 lg:pt-0 lg:pb-0">
+            {/* Text Side */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="order-2 lg:order-1"
             >
-              <div className="flex items-center gap-2 mb-6">
+              <div className="flex items-center gap-2 mb-8">
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <span className="text-sm text-primary-foreground/80">5.0 Rating · Wausau, WI</span>
+                <span className="text-sm text-primary-foreground/60">5.0 Rating · Wausau, WI</span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary-foreground leading-tight mb-6">
-                Gentle, Judgment-Free Dental Care in Wausau
+
+              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold text-primary-foreground leading-[1.1] mb-8">
+                Gentle,{" "}
+                <span className="text-primary italic">Judgment-Free</span>{" "}
+                Dental Care
               </h1>
-              <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 leading-relaxed max-w-lg">
+
+              <p className="text-lg md:text-xl text-primary-foreground/60 mb-10 leading-relaxed max-w-lg">
                 Serving families with compassion for over 25 years. A calm, welcoming space where your comfort always comes first.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3">
+
+              <div className="flex flex-col sm:flex-row gap-3 mb-12">
                 <Button size="lg" asChild className="text-base">
                   <Link to="/contact">
                     <Calendar className="w-5 h-5 mr-2" />
                     Schedule Appointment
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild className="text-base border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent">
+                <Button size="lg" variant="outline" asChild className="text-base border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent">
                   <a href="tel:+17158489100">
                     <Phone className="w-5 h-5 mr-2" />
-                    Call (715) 848-9100
+                    (715) 848-9100
                   </a>
                 </Button>
               </div>
+
+              {/* Micro trust indicators */}
+              <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-primary-foreground/40">
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle className="w-3.5 h-3.5 text-primary" /> 26+ Years Experience
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle className="w-3.5 h-3.5 text-primary" /> Anxiety-Friendly
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle className="w-3.5 h-3.5 text-primary" /> Accepting New Patients
+                </span>
+              </div>
+            </motion.div>
+
+            {/* Image Side */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="order-1 lg:order-2 relative"
+            >
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/5] max-h-[70vh] lg:max-h-[80vh]">
+                <img
+                  src={heroImage}
+                  alt="Calming dental office interior"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent" />
+              </div>
+              {/* Floating card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="absolute -bottom-4 -left-4 lg:-left-8 bg-card rounded-2xl p-5 shadow-xl border border-border max-w-xs hidden md:block"
+              >
+                <div className="flex gap-0.5 mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-sm text-foreground italic leading-relaxed">
+                  "The most patient and gentle dentist I've ever had."
+                </p>
+                <p className="text-xs text-muted-foreground mt-2">— Patient for 26 years</p>
+              </motion.div>
             </motion.div>
           </div>
         </div>
