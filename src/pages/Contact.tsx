@@ -10,13 +10,40 @@ const Contact = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thank you! We'll get back to you within one business day.",
-    });
-    setForm({ name: "", email: "", phone: "", message: "" });
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("https://sheetdb.io/api/v1/ucatmmzoa8zcz", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          data: {
+            name: form.name.trim(),
+            email: form.email.trim(),
+            phone: form.phone.trim(),
+            message: form.message.trim(),
+            submitted_at: new Date().toISOString(),
+          },
+        }),
+      });
+      if (!response.ok) throw new Error("Failed to submit");
+      toast({
+        title: "Message Sent!",
+        description: "Thank you! We'll get back to you within one business day.",
+      });
+      setForm({ name: "", email: "", phone: "", message: "" });
+    } catch {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again or call us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -88,9 +115,9 @@ const Contact = () => {
                     placeholder="Tell us what you need — whether it's a cleaning, a concern, or just a question. We're here to help."
                   />
                 </div>
-                <Button type="submit" size="lg" className="w-full sm:w-auto">
+                <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={isSubmitting}>
                   <Calendar className="w-4 h-4 mr-2" />
-                  Request Appointment
+                  {isSubmitting ? "Sending..." : "Request Appointment"}
                 </Button>
               </form>
             </div>
