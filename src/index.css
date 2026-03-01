@@ -116,3 +116,24 @@
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .nav-link-hover {
+    position: relative;
+  }
+  .nav-link-hover::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: hsl(var(--primary));
+    border-radius: 1px;
+    transition: width 0.3s ease, left 0.3s ease;
+  }
+  .nav-link-hover:hover::after {
+    width: 60%;
+    left: 20%;
+  }
+}

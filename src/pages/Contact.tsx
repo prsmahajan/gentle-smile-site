@@ -100,7 +100,7 @@ const Contact = () => {
 
   return (
     <>
-      <section className="pt-28 pb-16 lg:pt-36 lg:pb-24 bg-sage">
+      <section className="pt-28 pb-16 lg:pt-36 lg:pb-24 bg-accent">
         <div className="container mx-auto px-4 lg:px-8 text-center max-w-3xl">
           <FadeIn>
             <span className="inline-block text-xs font-semibold tracking-widest uppercase text-primary mb-3">
@@ -216,8 +216,8 @@ const Contact = () => {
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-medium text-foreground">Wausau, Wisconsin</p>
-                    <p className="text-sm text-muted-foreground">Serving the greater Wausau area</p>
+                    <p className="font-medium text-foreground">2600 Stewart Ave #264</p>
+                    <p className="text-sm text-muted-foreground">Wausau, WI 54401</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -275,12 +275,12 @@ const Contact = () => {
             <h2 className="text-2xl lg:text-3xl font-display font-semibold text-foreground mb-2">
               Find Our Office
             </h2>
-            <p className="text-muted-foreground">Conveniently located in Wausau, Wisconsin</p>
+            <p className="text-muted-foreground">2600 Stewart Ave #264, Wausau, WI 54401</p>
           </div>
           <div className="rounded-xl overflow-hidden border border-border shadow-sm">
             <iframe
-              title="Dr. Sara L. Schult office location in Wausau, Wisconsin"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d45636.86848498889!2d-89.6709!3d44.9591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88003de1eecbb5bb%3A0xb11e51f2e0ad9b25!2sWausau%2C%20WI!5e0!3m2!1sen!2sus!4v1700000000000"
+              title="Dr. Sara L. Schult office at 2600 Stewart Ave #264, Wausau, Wisconsin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2855.5!2d-89.6301!3d44.9441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88003d5a1f1c1e1d%3A0x1234567890abcdef!2s2600+Stewart+Ave+%23264%2C+Wausau%2C+WI+54401!5e0!3m2!1sen!2sus!4v1700000000000"
               width="100%"
               height="400"
               style={{ border: 0 }}
