@@ -72,6 +72,7 @@ const Contact = () => {
               "Email": result.data.email,
               "Phone": result.data.phone || "",
               "Message": result.data.message,
+              "Timestamp": new Date().toLocaleString("en-US", { timeZone: "America/Chicago" }),
             },
           ],
         }),
