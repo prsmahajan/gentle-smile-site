@@ -34,18 +34,26 @@ const services = [
 const Index = () => {
   return (
     <>
-      {/* Hero - Split Layout */}
-      <section className="relative min-h-screen bg-foreground overflow-hidden">
-        <div className="container mx-auto px-4 lg:px-8 relative z-10 h-full">
-          <div className="grid lg:grid-cols-2 items-center min-h-screen gap-8 pt-24 pb-12 lg:pt-0 lg:pb-0">
-            {/* Text Side */}
+      {/* Hero */}
+      <section className="relative min-h-screen overflow-hidden">
+        {/* Background image with overlay */}
+        <div className="absolute inset-0">
+          <img
+            src={heroImage}
+            alt="Calming dental office interior"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/75 to-foreground/40" />
+        </div>
+
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
+          <div className="flex flex-col justify-center min-h-screen max-w-2xl py-24">
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="order-2 lg:order-1"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              <div className="flex items-center gap-2 mb-8">
+              <div className="flex items-center gap-2 mb-6">
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -54,13 +62,13 @@ const Index = () => {
                 <span className="text-sm text-primary-foreground/60">5.0 Rating · Wausau, WI</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold text-primary-foreground leading-[1.1] mb-8">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-primary-foreground leading-[1.08] mb-6">
                 Gentle,{" "}
                 <span className="text-primary italic">Judgment-Free</span>{" "}
                 Dental Care
               </h1>
 
-              <p className="text-lg md:text-xl text-primary-foreground/60 mb-10 leading-relaxed max-w-lg">
+              <p className="text-lg md:text-xl text-primary-foreground/70 mb-10 leading-relaxed max-w-lg">
                 Serving families with compassion for over 25 years. A calm, welcoming space where your comfort always comes first.
               </p>
 
@@ -79,8 +87,7 @@ const Index = () => {
                 </Button>
               </div>
 
-              {/* Micro trust indicators */}
-              <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-primary-foreground/40">
+              <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-primary-foreground/50">
                 <span className="flex items-center gap-1.5">
                   <CheckCircle className="w-3.5 h-3.5 text-primary" /> 26+ Years Experience
                 </span>
@@ -92,48 +99,33 @@ const Index = () => {
                 </span>
               </div>
             </motion.div>
-
-            {/* Image Side */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="order-1 lg:order-2 relative"
-            >
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/5] max-h-[70vh] lg:max-h-[80vh]">
-                <img
-                  src={heroImage}
-                  alt="Calming dental office interior"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent" />
-              </div>
-              {/* Floating card */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="absolute -bottom-4 -left-4 lg:-left-8 bg-card rounded-2xl p-5 shadow-xl border border-border max-w-xs hidden md:block"
-              >
-                <div className="flex gap-0.5 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-sm text-foreground italic leading-relaxed">
-                  "The most patient and gentle dentist I've ever had."
-                </p>
-                <p className="text-xs text-muted-foreground mt-2">— Patient for 26 years</p>
-              </motion.div>
-            </motion.div>
+          </div>
         </div>
+
+        {/* Floating testimonial card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="absolute bottom-12 right-8 lg:right-16 bg-card/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-border max-w-xs hidden md:block z-10"
+        >
+          <div className="flex gap-0.5 mb-2">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+            ))}
+          </div>
+          <p className="text-sm text-foreground italic leading-relaxed">
+            "The most patient and gentle dentist I've ever had."
+          </p>
+          <p className="text-xs text-muted-foreground mt-2">— Patient for 26 years</p>
+        </motion.div>
 
         {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          transition={{ delay: 1, duration: 0.6 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
         >
           <span className="text-xs text-primary-foreground/40 tracking-widest uppercase">Scroll</span>
           <motion.div
@@ -144,7 +136,6 @@ const Index = () => {
             <div className="w-1 h-1.5 rounded-full bg-primary-foreground/60" />
           </motion.div>
         </motion.div>
-        </div>
       </section>
 
       {/* Trust Bar */}
