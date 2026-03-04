@@ -60,7 +60,9 @@ const Contact = () => {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("https://sheetdb.io/api/v1/ucatmmzoa8zcz", {
+      const sheetDbUrl = import.meta.env.VITE_SHEETDB_URL;
+      if (!sheetDbUrl) throw new Error("Form endpoint not configured");
+      const response = await fetch(sheetDbUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

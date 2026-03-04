@@ -79,7 +79,7 @@ const Index = () => {
                     Schedule Appointment
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild className="text-base border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent">
+                <Button size="lg" variant="outline" asChild className="text-base border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/15 bg-primary-foreground/10 backdrop-blur-sm">
                   <a href="tel:+17158489100">
                     <Phone className="w-5 h-5 mr-2" />
                     (715) 848-9100
